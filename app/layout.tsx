@@ -3,12 +3,14 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { AuthProvider } from "@/contexts/auth-context"
+import { StartupProvider } from "@/contexts/startup-context"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Firebase Auth Site",
-  description: "Next.js site with Firebase authentication",
+  title: "Modern Auth",
+  description: "シンプルで現代的な認証システム",
     generator: 'v0.dev'
 }
 
@@ -18,9 +20,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <StartupProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </StartupProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
