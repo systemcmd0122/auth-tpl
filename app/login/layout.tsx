@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "ログイン",
-  description: "TechDash Proにログインして、最先端のダッシュボード体験を始めましょう。",
+  description: "auth-tplにログイン",
   robots: {
     index: true,
     follow: true,
