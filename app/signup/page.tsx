@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
+import { updateUserProfile as updateFirestoreProfile } from "@/lib/profile-service"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,6 +15,7 @@ import { Github, Mail, Shield } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ButtonLoading } from "@/components/loading"
+import { PrivacyConsentDialog } from "@/components/privacy-consent-dialog"
 
 export default function SignupPage() {
   const [email, setEmail] = useState("")
@@ -21,8 +23,46 @@ export default function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPrivacyDialog, setShowPrivacyDialog] = useState(false)
+  const [pendingSignupData, setPendingSignupData] = useState<{
+    type: 'email' | 'google' | 'github'
+    email?: string
+    password?: string
+  } | null>(null)
   const { signUp, signInWithGoogle, signInWithGithub } = useAuth()
   const router = useRouter()
+
+  // プライバシーポリシー同意後の実際のサインアップ処理
+  const performSignup = async () => {
+    if (!pendingSignupData) return
+
+    setLoading(true)
+    setError("")
+
+    try {
+      if (pendingSignupData.type === 'email' && pendingSignupData.email && pendingSignupData.password) {
+        await signUp(pendingSignupData.email, pendingSignupData.password)
+      } else if (pendingSignupData.type === 'google') {
+        await signInWithGoogle()
+      } else if (pendingSignupData.type === 'github') {
+        await signInWithGithub()
+      }
+
+      router.push("/")
+    } catch (error: any) {
+      if (pendingSignupData.type === 'email') {
+        setError("アカウント作成に失敗しました。メールアドレスを確認してください。")
+      } else if (pendingSignupData.type === 'google') {
+        setError("Googleアカウントでの登録に失敗しました。")
+      } else if (pendingSignupData.type === 'github') {
+        setError("GitHubアカウントでの登録に失敗しました。")
+      }
+    } finally {
+      setLoading(false)
+      setShowPrivacyDialog(false)
+      setPendingSignupData(null)
+    }
+  }
 
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,44 +78,25 @@ export default function SignupPage() {
       return
     }
 
-    setLoading(true)
-
-    try {
-      await signUp(email, password)
-      router.push("/")
-    } catch (error: any) {
-      setError("アカウント作成に失敗しました。メールアドレスを確認してください。")
-    } finally {
-      setLoading(false)
-    }
+    // プライバシーポリシー同意ダイアログを表示
+    setPendingSignupData({ type: 'email', email, password })
+    setShowPrivacyDialog(true)
   }
 
   const handleGoogleSignup = async () => {
     setError("")
-    setLoading(true)
 
-    try {
-      await signInWithGoogle()
-      router.push("/")
-    } catch (error: any) {
-      setError("Googleアカウントでの登録に失敗しました。")
-    } finally {
-      setLoading(false)
-    }
+    // プライバシーポリシー同意ダイアログを表示
+    setPendingSignupData({ type: 'google' })
+    setShowPrivacyDialog(true)
   }
 
   const handleGithubSignup = async () => {
     setError("")
-    setLoading(true)
 
-    try {
-      await signInWithGithub()
-      router.push("/")
-    } catch (error: any) {
-      setError("GitHubアカウントでの登録に失敗しました。")
-    } finally {
-      setLoading(false)
-    }
+    // プライバシーポリシー同意ダイアログを表示
+    setPendingSignupData({ type: 'github' })
+    setShowPrivacyDialog(true)
   }
 
   return (
@@ -237,6 +258,19 @@ export default function SignupPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* プライバシーポリシー同意ダイアログ */}
+        <PrivacyConsentDialog
+          open={showPrivacyDialog}
+          onOpenChange={(open) => {
+            setShowPrivacyDialog(open)
+            if (!open) {
+              setPendingSignupData(null)
+            }
+          }}
+          onAccept={performSignup}
+          loading={loading}
+        />
       </div>
 
       <style jsx>{`

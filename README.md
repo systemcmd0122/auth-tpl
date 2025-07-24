@@ -37,20 +37,16 @@
 
 ### 1. リポジトリのクローン
 
-\`\`\`bash
-git clone https://github.com/yourusername/modern-auth-template.git
-cd modern-auth-template
-\`\`\`
+```bash
+git clone https://github.com/systemcmd0122/auth-tpl
+cd auth-tpl
+```
 
 ### 2. 依存関係のインストール
 
-\`\`\`bash
+```bash
 npm install
-# または
-yarn install
-# または
-pnpm install
-\`\`\`
+```
 
 ### 3. Firebase プロジェクトの設定
 
@@ -66,13 +62,13 @@ pnpm install
 
 `.env.example` を `.env.local` にコピーして設定値を入力：
 
-\`\`\`bash
+```bash
 cp .env.example .env.local
-\`\`\`
+```
 
 `.env.local` を編集：
 
-\`\`\`env
+```env
 # Firebase Configuration
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
@@ -81,13 +77,13 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
-\`\`\`
+```
 
 ### 5. Firestore セキュリティルールの設定
 
 Firebase Console の Firestore Database > ルール で以下を設定：
 
-\`\`\`javascript
+```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -110,23 +106,19 @@ service cloud.firestore {
     }
   }
 }
-\`\`\`
+```
 
 ### 6. 開発サーバーの起動
 
-\`\`\`bash
+```bash
 npm run dev
-# または
-yarn dev
-# または
-pnpm dev
-\`\`\`
+```
 
 [http://localhost:3000](http://localhost:3000) でアプリケーションが起動します。
 
 ## 📁 プロジェクト構造
 
-\`\`\`
+```
 ├── app/                    # Next.js App Router
 │   ├── globals.css        # グローバルスタイル
 │   ├── layout.tsx         # ルートレイアウト
@@ -148,7 +140,7 @@ pnpm dev
 │   ├── profile-service.ts # プロフィール管理
 │   └── utils.ts          # 共通ユーティリティ
 └── hooks/                # カスタムフック
-\`\`\`
+```
 
 ## 🎨 カスタマイズ
 
@@ -156,7 +148,7 @@ pnpm dev
 
 `tailwind.config.ts` でカラーパレットを変更できます：
 
-\`\`\`typescript
+```typescript
 module.exports = {
   theme: {
     extend: {
@@ -170,7 +162,7 @@ module.exports = {
     },
   },
 }
-\`\`\`
+```
 
 ### ブランディングの変更
 
@@ -245,7 +237,7 @@ module.exports = {
 
 ## 📞 サポート
 
-問題や質問がある場合は、[Issues](https://github.com/yourusername/modern-auth-template/issues) を作成してください。
+問題や質問がある場合は、[Issues](https://github.com/systemcmd0122/auth-tpl/issues) を作成してください。
 
 ---
 

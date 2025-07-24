@@ -89,6 +89,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               website: "",
               phoneNumber: user.phoneNumber || "",
               provider: user.providerData[0]?.providerId || "email",
+              privacyPolicyAccepted: true, // 新しいユーザーは常に同意済み
+              privacyPolicyAcceptedAt: new Date(),
             }
             await createUserProfile(user.uid, newProfile)
             setUserProfile(newProfile as UserProfile)

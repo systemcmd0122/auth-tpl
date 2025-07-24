@@ -23,6 +23,8 @@ export interface UserProfile {
   website: string
   phoneNumber: string
   provider: string
+  privacyPolicyAccepted: boolean
+  privacyPolicyAcceptedAt: any
   createdAt: any
   updatedAt: any
 }
