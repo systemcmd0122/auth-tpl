@@ -10,33 +10,33 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    default: "TechDash Pro - 次世代ダッシュボード",
-    template: "%s | TechDash Pro"
+    default: "auth-tpl -- create_by_Next.js",
+    template: "%s | auth-tpl"
   },
-  description: "最先端技術を駆使した現代的なダッシュボード。シンプルで直感的なUI/UXと高度なセキュリティを実現。",
-  keywords: ["ダッシュボード", "認証", "モダンUI", "技術的", "セキュア", "レスポンシブ"],
+  description: "auth-tpl -- create_by_Next.js",
+  keywords: ["auth-tpl", "Next.js", "auth-tpl -- create_by_Next.js", "next.js auth tpl"],
   authors: [{ name: "TechDash Pro Team" }],
-  creator: "TechDash Pro",
-  publisher: "TechDash Pro",
+  creator: "Tisk_01010100",
+  publisher: "Tisk_01010100",
   formatDetection: {
-    email: false,
-    address: false,
+    email: "Tisk.address@gmail.com",
+    address: "Japan",
     telephone: false,
   },
-  metadataBase: new URL("https://techdash.pro"),
+  metadataBase: new URL("https://auth-tpl.vercel.app/"),
   openGraph: {
-    title: "TechDash Pro - 次世代ダッシュボード",
-    description: "最先端技術を駆使した現代的なダッシュボード",
-    url: "https://techdash.pro",
-    siteName: "TechDash Pro",
+    title: "auth-tpl -- create_by_Next.js",
+    description: "Next.jsとFirebaseを使用した認証テンプレートサイト",
+    url: "https://auth-tpl.vercel.app/",
+    siteName: "auth-tpl",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TechDash Pro - 次世代ダッシュボード",
-    description: "最先端技術を駆使した現代的なダッシュボード",
-    creator: "@techdashpro",
+    title: "auth-tpl -- create_by_Next.js",
+    description: "Next.jsとFirebaseを使用した認証テンプレートサイト",
+    creator: "@Tisk_01010100",
   },
   viewport: {
     width: "device-width",
