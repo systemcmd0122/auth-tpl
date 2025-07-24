@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  generator: 'TechDash Pro v2.0'
+  generator: 'auth-tpl v2.0'
 }
 
 export default function RootLayout({
