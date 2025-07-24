@@ -187,14 +187,6 @@ export default function ProfilePage() {
               <span className="sm:hidden">戻る</span>
             </Button>
           </Link>
-          
-          <div className="flex flex-col items-center text-center">
-            <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              プロフィール設定
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">アカウント管理</p>
-          </div>
-          
           <ThemeToggle />
         </div>
       </header>
